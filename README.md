@@ -1,103 +1,61 @@
-Source-Grounded RAG – Learning Project
+<div align="center">
 
-Overview
+# 📚 Source-Grounded RAG
 
-This repository documents a learning project where I built a source-grounded AI system using Retrieval-Augmented Generation (RAG). The goal was not to build a production-ready application, but to deeply understand how AI systems can be constrained to answer only from trusted source material and refuse when the source does not support an answer.
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![LlamaIndex](https://img.shields.io/badge/LlamaIndex-6d28d9?style=for-the-badge)
+![FAISS](https://img.shields.io/badge/FAISS-0467DF?style=for-the-badge)
+![Learning Project](https://img.shields.io/badge/Learning_Project-4c1d95?style=for-the-badge)
 
-The project was built as a hands-on exploration while working in the product domain, without prior full-stack or deep backend engineering experience.
+**A RAG system designed to answer *only* from trusted sources — and refuse when they don't support an answer.**
 
-⸻
+</div>
 
-Why this project
+---
 
-The idea came from observing how a human expert develops knowledge by reading, cross-referencing, and reasoning strictly from authoritative texts. I wanted to test whether an AI system could be designed to follow the same discipline.
+## Overview
+A learning project building a **source-grounded AI system** using Retrieval-Augmented
+Generation. The goal wasn't a production app — it was to deeply understand how an AI
+can be **constrained to trusted material** and made to **refuse** when the source
+doesn't back an answer. Built as a hands-on exploration from a **product background**,
+without prior deep backend experience.
 
-Astrology is used here only as a test domain because it:
-	•	Has well-defined classical texts
-	•	Contains multiple systems that must not be mixed
-	•	Is highly prone to hallucination if constraints are weak
+## Why this project
+It came from watching how a human expert builds knowledge: reading, cross-referencing,
+and reasoning strictly from authoritative texts. Could an AI follow the same discipline?
 
-This makes it a strong stress test for trust, boundaries, and retrieval accuracy.
+**Astrology is used only as a test domain** — because it has well-defined classical
+texts, multiple systems that must not be mixed, and is highly prone to hallucination if
+constraints are weak. That makes it a strong stress test for **trust, boundaries, and
+retrieval accuracy**. (The focus is AI system design, not domain claims.)
 
-⸻
+## What it demonstrates
+- Retrieval-Augmented Generation (RAG) architecture
+- **Source-bound** answer generation + **explicit refusal** when info isn't present
+- Separation of knowledge ingestion from query logic
+- Product-first experimentation with AI systems
 
-What this project demonstrates
-	•	Retrieval-Augmented Generation (RAG) architecture
-	•	Source-bound answer generation
-	•	Explicit refusal when information is not present in sources
-	•	Separation of knowledge ingestion from query logic
-	•	Product-first experimentation with AI systems
+## Architecture
+```
+data/books ──► ingest + chunk ──► embeddings ──► local vector store (FAISS)
+                                                        │
+              user query ──► retrieve top chunks ──► model answers ONLY from them
+```
 
-⸻
+## Tech stack
+`Python` · `FastAPI` · `LlamaIndex` · `OpenAI API` · `FAISS / local vector store`
 
-What this project is NOT
-	•	Not a predictive or advisory system
-	•	Not a finished or monetized product
-	•	Not a replacement for domain experts
-	•	Not a demonstration of astrology accuracy
+## Run locally
+```bash
+# clone → venv → install deps → add your docs to data/books → run ingestion → start FastAPI
+```
+*(API keys and generated data are intentionally excluded from the repo.)*
 
-The focus is AI system design, not domain claims.
+## Key learning
+Modern AI tooling drastically lowers the barrier to a first version — but shifts the real
+challenge to **problem framing, source discipline, boundary design, and refusal
+behavior**. A strong reminder that **thinking and system design matter more than code
+volume**.
 
-⸻
-
-Architecture (High Level)
-	1.	Source documents are placed in data/books
-	2.	Documents are ingested and chunked
-	3.	Text chunks are converted into embeddings
-	4.	Embeddings are stored locally as a vector store
-	5.	User queries retrieve only the most relevant chunks
-	6.	The AI model explains only what the retrieved sources contain
-
-⸻
-
-Tech Stack
-	•	Python
-	•	FastAPI
-	•	LlamaIndex
-	•	OpenAI API
-	•	FAISS / local vector storage
-
-⸻
-
-Project Structure
-
-ai-astrology-rag/
-├── api/            # Query and chat API
-├── services/       # Ingestion logic
-├── data/
-│   ├── books/      # Source documents (not committed)
-│   └── vector_store/ # Generated embeddings (ignored)
-├── main.py         # App entry point
-├── requirements.txt
-└── README.md
-
-
-⸻
-
-How to run locally
-	1.	Clone the repository
-	2.	Create a virtual environment
-	3.	Install dependencies
-	4.	Add your own documents to data/books
-	5.	Run ingestion
-	6.	Start the FastAPI server
-
-(API keys and generated data are intentionally excluded from the repo.)
-
-⸻
-
-Key learning
-
-Modern AI tooling significantly lowers the barrier to building first versions of products. However, it also shifts the challenge toward:
-	•	Clear problem framing
-	•	Source selection and discipline
-	•	Boundary design (what the system must not do)
-	•	Trust and refusal behavior
-
-This project was a strong reminder that thinking and system design matter more than code volume.
-
-⸻
-
-Status
-
-Early-stage learning project. Still evolving.
+<div align="center"><sub>Early-stage learning project by <b>Tanishq Jain</b> · still evolving</sub></div>
